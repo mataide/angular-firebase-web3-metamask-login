@@ -60,7 +60,7 @@ export class AuthService {
       // Step 4: If the signature is valid, retrieve a custom auth token for Firebase
       switchMap((sig) =>
         this.http.post<VerifyResponse>(
-          'https://us-central1-ionic-angular-web3.cloudfunctions.net/user/web3',
+          'https://l73zoabqa4.execute-api.us-east-1.amazonaws.com/dev/user/web3',
           { address: ethereum.selectedAddress, signature: sig },{
             headers: {'x-api-key': 'xxxxxxxxxxxxxxx'}
           }
