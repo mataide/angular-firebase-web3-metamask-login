@@ -39,10 +39,10 @@ export class AuthService {
       }),
       // Step 2: Retrieve the current nonce for the requested address
       switchMap(() =>
-        this.http.post<NonceResponse>(
-          'https://us-central1-ionic-angular-web3.cloudfunctions.net/getNonceToSign',
+        this.http.get<NonceResponse>(
+          `https://l73zoabqa4.execute-api.us-east-1.amazonaws.com/dev/user/nonce/${ethereum.selectedAddress}`,
           {
-            address: ethereum.selectedAddress,
+            headers: {'x-api-key': 'xxxxxxxxxxxxxxxx'}
           }
         )
       ),
@@ -60,8 +60,10 @@ export class AuthService {
       // Step 4: If the signature is valid, retrieve a custom auth token for Firebase
       switchMap((sig) =>
         this.http.post<VerifyResponse>(
-          'https://us-central1-ionic-angular-web3.cloudfunctions.net/verifySignedMessage',
-          { address: ethereum.selectedAddress, signature: sig }
+          'https://us-central1-ionic-angular-web3.cloudfunctions.net/user/web3',
+          { address: ethereum.selectedAddress, signature: sig },{
+            headers: {'x-api-key': 'xxxxxxxxxxxxxxx'}
+          }
         )
       ),
       // Step 5: Use the auth token to auth with Firebase
